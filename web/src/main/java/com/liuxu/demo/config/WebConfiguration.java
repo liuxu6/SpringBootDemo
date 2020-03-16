@@ -4,7 +4,6 @@ package com.liuxu.demo.config;
 import com.liuxu.demo.constant.CommonDef;
 import com.liuxu.demo.interceptor.AuthenticationInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.*;
 
