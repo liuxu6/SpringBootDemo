@@ -4,8 +4,13 @@ public enum ResultCode {
 
     SUCCESS(200,"成功"),
 
-    USER_NOT_LOGIN(500,"用户未登录");
+    USER_NOT_LOGIN(500,"用户未登录"),
 
+    PASSWORD_IS_ERROR(500, "用户名不存在或密码错误"),
+
+    VALUE_NOT_EMPTY(500,"{0}不能为空"),
+
+    DATA_NOT_EXISTS(500,"{0}不存在");
 
     private int code;
     private String message;

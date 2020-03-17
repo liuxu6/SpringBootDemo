@@ -10,10 +10,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @RestControllerAdvice
 public class DemoResponseEntityHandler extends ResponseEntityExceptionHandler {
 
-    public static HttpStatus DEFAULT_HTTP_STATUS;
-
-    @ExceptionHandler({DemoException.class})
-    public ResponseEntity<Result> handleMyException(DemoException ex) {
+    @ExceptionHandler({MyException.class})
+    public ResponseEntity<Result> handleMyException(MyException ex) {
 
         Result result = new Result(ex.getCode() , ex.getMessage());
         HttpStatus httpStatus;

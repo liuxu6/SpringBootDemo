@@ -2,7 +2,8 @@ package com.liuxu.demo.interceptor;
 
 import com.liuxu.demo.constant.CommonDef;
 import com.liuxu.demo.datamodel.LoginUserResp;
-import com.liuxu.demo.exception.DemoException;
+import com.liuxu.demo.exception.MyException;
+import com.liuxu.demo.exception.MyExceptionHandler;
 import com.liuxu.demo.result.ResultCode;
 import com.liuxu.demo.unit.ThreadLocalMap;
 import org.springframework.stereotype.Service;
@@ -17,13 +18,13 @@ import java.util.HashMap;
 public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-            throws UnsupportedEncodingException, DemoException {
+            throws UnsupportedEncodingException, MyException {
 
         LoginUserResp loginUserDto = (LoginUserResp) request.getSession().getAttribute(CommonDef.USER_LOGIN_INFO);
 
         if (loginUserDto == null) {
 //            DemoExceptionHandler.publish("401", "请登录");
-            throw new DemoException(ResultCode.USER_NOT_LOGIN);
+            MyExceptionHandler.publish(ResultCode.USER_NOT_LOGIN);
         }
 //        setupDefault(request);
 

@@ -3,6 +3,7 @@ package com.liuxu.demo.controller;
 import com.liuxu.demo.constant.CommonDef;
 import com.liuxu.demo.datamodel.LoginUserReq;
 import com.liuxu.demo.datamodel.LoginUserResp;
+import com.liuxu.demo.exception.MyException;
 import com.liuxu.demo.intf.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,7 +26,7 @@ public class LoginManagementController {
     @RequestMapping(value = "/login", produces = { "application/json" }, method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.CREATED)
     @ResponseBody
-    public LoginUserResp login(@Validated @RequestBody LoginUserReq loginUserReq, HttpServletRequest request, HttpServletResponse response){
+    public LoginUserResp login(@Validated @RequestBody LoginUserReq loginUserReq, HttpServletRequest request, HttpServletResponse response) throws MyException {
         return loginServiceImpl.login(loginUserReq, request, response);
 
     }
