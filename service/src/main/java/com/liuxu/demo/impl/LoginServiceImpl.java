@@ -1,6 +1,7 @@
 package com.liuxu.demo.impl;
 
 import com.liuxu.demo.constant.CommonDef;
+import com.liuxu.demo.constant.TableNameDef;
 import com.liuxu.demo.datamodel.LoginUserReq;
 import com.liuxu.demo.datamodel.LoginUserResp;
 import com.liuxu.demo.dto.UserDTO;
@@ -21,6 +22,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 
+
 @Service
 public class LoginServiceImpl implements LoginService {
 
@@ -31,8 +33,8 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public LoginUserResp login(LoginUserReq loginUserReq, HttpServletRequest request, HttpServletResponse response) throws MyException {
         // 校验是否为空
-        CheckHelper.checkIsNotEmpty("用户名", loginUserReq.getUserCode());
-        CheckHelper.checkIsNotEmpty("密码", loginUserReq.getPassword());
+        CheckHelper.checkIsNotEmpty(TableNameDef.USER_TABLE_USER_CODE, loginUserReq.getUserCode());
+        CheckHelper.checkIsNotEmpty(TableNameDef.USER_TABLE_PASSWORD, loginUserReq.getPassword());
 
         LoginUserResp userResp = new LoginUserResp();
 
@@ -77,6 +79,5 @@ public class LoginServiceImpl implements LoginService {
         MessageDigest md = MessageDigest.getInstance("SHA");
         md.update(password.getBytes());
         return new BigInteger(md.digest()).toString(32);
-
     }
 }

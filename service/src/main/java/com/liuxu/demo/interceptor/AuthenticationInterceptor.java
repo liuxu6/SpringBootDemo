@@ -18,7 +18,7 @@ import java.util.HashMap;
 public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-            throws UnsupportedEncodingException, MyException {
+            throws MyException {
 
         LoginUserResp loginUserDto = (LoginUserResp) request.getSession().getAttribute(CommonDef.USER_LOGIN_INFO);
 

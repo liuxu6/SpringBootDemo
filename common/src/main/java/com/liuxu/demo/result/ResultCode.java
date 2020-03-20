@@ -10,7 +10,10 @@ public enum ResultCode {
 
     VALUE_NOT_EMPTY(500,"{0}不能为空"),
 
-    DATA_NOT_EXISTS(500,"{0}不存在");
+    DATA_NOT_EXISTS(500,"{0}不存在"),
+
+    DATA_IS_EXISTS(500,"{0}已存在");
+
 
     private int code;
     private String message;
