@@ -20,15 +20,17 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws MyException {
 
+        //获取内存中的session
         LoginUserResp loginUserDto = (LoginUserResp) request.getSession().getAttribute(CommonDef.USER_LOGIN_INFO);
 
+
+        System.out.println(request.getSession().getId());
         if (loginUserDto == null) {
-//            DemoExceptionHandler.publish("401", "请登录");
             MyExceptionHandler.publish(ResultCode.USER_NOT_LOGIN);
         }
 //        setupDefault(request);
 
-        ThreadLocalMap.setUp(new HashMap<String, Object>());
+        ThreadLocalMap.setUp(new HashMap<>());
 
         if (loginUserDto.getUserName() != null) {
             ThreadLocalMap.set("USER_NAME", loginUserDto.getUserName());
