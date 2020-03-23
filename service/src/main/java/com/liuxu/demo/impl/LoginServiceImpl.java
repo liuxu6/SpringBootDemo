@@ -10,7 +10,7 @@ import com.liuxu.demo.exception.MyExceptionHandler;
 import com.liuxu.demo.intf.LoginService;
 import com.liuxu.demo.mapper.LoginMapper;
 import com.liuxu.demo.result.ResultCode;
-import com.liuxu.demo.unit.CheckHelper;
+import com.liuxu.demo.util.CheckHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

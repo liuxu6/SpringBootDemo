@@ -5,13 +5,12 @@ import com.liuxu.demo.datamodel.LoginUserResp;
 import com.liuxu.demo.exception.MyException;
 import com.liuxu.demo.exception.MyExceptionHandler;
 import com.liuxu.demo.result.ResultCode;
-import com.liuxu.demo.unit.ThreadLocalMap;
+import com.liuxu.demo.util.ThreadLocalMap;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 
 @Service
@@ -23,8 +22,6 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
         //获取内存中的session
         LoginUserResp loginUserDto = (LoginUserResp) request.getSession().getAttribute(CommonDef.USER_LOGIN_INFO);
 
-
-        System.out.println(request.getSession().getId());
         if (loginUserDto == null) {
             MyExceptionHandler.publish(ResultCode.USER_NOT_LOGIN);
         }

@@ -1,4 +1,4 @@
-package com.liuxu.demo.unit;
+package com.liuxu.demo.util;
 
 import com.liuxu.demo.exception.MyException;
 import com.liuxu.demo.exception.MyExceptionHandler;

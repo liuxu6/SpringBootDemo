@@ -7,13 +7,12 @@ import com.liuxu.demo.datamodel.AddUserResp;
 import com.liuxu.demo.dto.UserDTO;
 import com.liuxu.demo.exception.MyException;
 import com.liuxu.demo.exception.MyExceptionHandler;
-import com.liuxu.demo.intf.SequenceService;
 import com.liuxu.demo.intf.UserService;
 import com.liuxu.demo.mapper.LoginMapper;
 import com.liuxu.demo.mapper.SequenceMapper;
 import com.liuxu.demo.mapper.UserMapper;
 import com.liuxu.demo.result.ResultCode;
-import com.liuxu.demo.unit.CheckHelper;
+import com.liuxu.demo.util.CheckHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
