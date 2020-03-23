@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.liuxu.demo.mapper.LoginMapper">
     <select id="selectLoginUserByCode"  resultType="com.liuxu.demo.dto.UserDTO">
-        select a.user_id, a.user_code, a.user_name,a.password,a.state
+        select a.user_id as userId, a.user_code as userCode, a.user_name as userName,a.password,a.state
         from user a
         where a.state = 'A' and a.user_code = #{userCode,jdbcType=VARCHAR}
     </select>

@@ -66,6 +66,13 @@ public class LoginServiceImpl implements LoginService {
         return userResp;
     }
 
+    @Override
+    public void loginOut(HttpServletRequest request, HttpServletResponse response){
+        HttpSession httpSession = request.getSession();
+        httpSession.removeAttribute(CommonDef.USER_LOGIN_INFO);
+        httpSession.invalidate();
+    }
+
 
     private void setUserSessionAndLog(HttpServletRequest request, LoginUserResp loginUserDto){
         // 缓存信息

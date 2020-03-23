@@ -7,6 +7,6 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserMapper {
 
-    AddUserResp addUser(UserDTO userDTO);
+    void addUser(UserDTO userDTO);
 
 }

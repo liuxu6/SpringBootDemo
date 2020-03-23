@@ -1,13 +1,16 @@
 package com.liuxu.demo.impl;
 
+import com.liuxu.demo.constant.SequenceDef;
 import com.liuxu.demo.constant.TableNameDef;
 import com.liuxu.demo.datamodel.AddUserReq;
 import com.liuxu.demo.datamodel.AddUserResp;
 import com.liuxu.demo.dto.UserDTO;
 import com.liuxu.demo.exception.MyException;
 import com.liuxu.demo.exception.MyExceptionHandler;
+import com.liuxu.demo.intf.SequenceService;
 import com.liuxu.demo.intf.UserService;
 import com.liuxu.demo.mapper.LoginMapper;
+import com.liuxu.demo.mapper.SequenceMapper;
 import com.liuxu.demo.mapper.UserMapper;
 import com.liuxu.demo.result.ResultCode;
 import com.liuxu.demo.unit.CheckHelper;
@@ -27,9 +30,12 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private SequenceMapper sequenceMapper;
+
     @Override
     public AddUserResp addUser(AddUserReq addUserReq) throws MyException {
-        AddUserResp addUserResDto = new AddUserResp();
+        AddUserResp addUserResp = new AddUserResp();
 
         if (null == addUserReq) {
             return null;
@@ -48,21 +54,24 @@ public class UserServiceImpl implements UserService {
 
         UserDTO userDTO = loginMapper.selectLoginUserByCode(addUserReq.getUserCode());
         if (userDTO == null){
+
+            long userId = sequenceMapper.getSequenceId(SequenceDef.USER_ID_SEQ);
+
             userDTO = new UserDTO();
+            userDTO.setUserId(userId);
             userDTO.setUserCode(addUserReq.getUserCode());
             userDTO.setUserName(addUserReq.getUserName());
             userDTO.setPassword(password);
             userDTO.setState("A");
-
             userMapper.addUser(userDTO);
+
+            addUserResp.setUserId(userId);
 
         }else {
             MyExceptionHandler.publish(ResultCode.DATA_IS_EXISTS,"用户");
         }
 
-
-
-        return addUserResDto;
+        return addUserResp;
     }
 
     private String md5(String password) throws NoSuchAlgorithmException {
