@@ -9,4 +9,11 @@ public class CommonDef {
 
     public static final String SESSION_PATH = "session:";
 
+    public static final String USER_LOGIN_INFO_USER_ID = "USER_ID";
+
+    public static final String USER_LOGIN_INFO_USER_CODE = "USER_CODE";
+
+    public static final String USER_LOGIN_INFO_USER_NAME = "USER_NAME";
+
+
 }

@@ -19,7 +19,7 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws MyException {
 
-        //获取内存中的session
+        //spring-session
         LoginUserResp loginUserDto = (LoginUserResp) request.getSession().getAttribute(CommonDef.USER_LOGIN_INFO);
 
         if (loginUserDto == null) {
@@ -30,7 +30,10 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
         ThreadLocalMap.setUp(new HashMap<>());
 
         if (loginUserDto.getUserName() != null) {
-            ThreadLocalMap.set("USER_NAME", loginUserDto.getUserName());
+            ThreadLocalMap.set(CommonDef.USER_LOGIN_INFO_USER_ID, loginUserDto.getUserId());
+            ThreadLocalMap.set(CommonDef.USER_LOGIN_INFO_USER_CODE, loginUserDto.getUserCode());
+            ThreadLocalMap.set(CommonDef.USER_LOGIN_INFO_USER_NAME, loginUserDto.getUserName());
+
         }
         return true;
     }

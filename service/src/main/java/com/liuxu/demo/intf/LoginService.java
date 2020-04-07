@@ -13,4 +13,7 @@ public interface LoginService {
 
     void loginOut(HttpServletRequest request, HttpServletResponse response);
 
+    LoginUserResp queryLoginUser();
+
+
 }

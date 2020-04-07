@@ -1,3 +1,6 @@
+CREATE DATABASE  IF NOT EXISTS `demo` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+USE `demo`;
+
 --
 -- Table structure for table `user``
 --

@@ -11,6 +11,7 @@ import com.liuxu.demo.intf.LoginService;
 import com.liuxu.demo.mapper.LoginMapper;
 import com.liuxu.demo.result.ResultCode;
 import com.liuxu.demo.util.CheckHelper;
+import com.liuxu.demo.util.ThreadLocalMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -73,6 +74,14 @@ public class LoginServiceImpl implements LoginService {
         httpSession.invalidate();
     }
 
+    @Override
+    public LoginUserResp queryLoginUser(){
+        LoginUserResp userResp = new LoginUserResp();
+        userResp.setUserId(ThreadLocalMap.getLong(CommonDef.USER_LOGIN_INFO_USER_ID));
+        userResp.setUserCode(ThreadLocalMap.getString(CommonDef.USER_LOGIN_INFO_USER_CODE));
+        userResp.setUserName(ThreadLocalMap.getString(CommonDef.USER_LOGIN_INFO_USER_NAME));
+        return userResp;
+    }
 
     private void setUserSessionAndLog(HttpServletRequest request, LoginUserResp loginUserDto){
         // 缓存信息

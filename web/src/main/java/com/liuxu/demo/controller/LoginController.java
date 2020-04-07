@@ -1,6 +1,7 @@
 package com.liuxu.demo.controller;
 
 import com.liuxu.demo.constant.CommonDef;
+import com.liuxu.demo.datamodel.AddUserReq;
 import com.liuxu.demo.datamodel.LoginUserReq;
 import com.liuxu.demo.exception.MyException;
 import com.liuxu.demo.intf.LoginService;
@@ -22,13 +23,13 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginController {
 
     @Autowired
-    private LoginService loginServiceImpl;
+    private LoginService loginService;
 
     @RequestMapping(value = "/login", produces = { "application/json" }, method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.CREATED)
     @ResponseBody
     public Result login(@Validated @RequestBody LoginUserReq loginUserReq, HttpServletRequest request, HttpServletResponse response) throws MyException {
-        return new Result(ResultCode.SUCCESS,loginServiceImpl.login(loginUserReq, request, response));
+        return new Result(ResultCode.SUCCESS,loginService.login(loginUserReq, request, response));
 
     }
 
@@ -36,9 +37,15 @@ public class LoginController {
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     @ResponseBody
     public void loginOut(HttpServletRequest request, HttpServletResponse response){
-        loginServiceImpl.loginOut(request, response);
+        loginService.loginOut(request, response);
     }
 
+    @RequestMapping(value = "/loginuser", produces = { "application/json" }, method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    public Result queryLoginUser() throws MyException {
+        return new Result(ResultCode.SUCCESS, loginService.queryLoginUser());
+    }
 
     @RequestMapping(value = "/test", produces = { "application/json" }, method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
