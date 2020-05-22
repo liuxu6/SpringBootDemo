@@ -6,6 +6,8 @@ import com.liuxu.demo.common.exception.MyException;
 import com.liuxu.demo.service.intf.LoginService;
 import com.liuxu.demo.common.result.Result;
 import com.liuxu.demo.common.result.ResultCode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Propagation;
@@ -23,6 +25,8 @@ public class LoginController {
 
     @Autowired
     private LoginService loginService;
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @RequestMapping(value = "/login", produces = { "application/json" }, method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.CREATED)
@@ -50,6 +54,7 @@ public class LoginController {
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
     public String test(){
+        logger.info("test");
         return "hello";
     }
 
