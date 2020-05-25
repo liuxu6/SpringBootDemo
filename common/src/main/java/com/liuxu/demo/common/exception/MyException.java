@@ -6,8 +6,8 @@ public class MyException extends Exception implements Serializable {
 
     private static final long serialVersionUID = 4818496246533237841L;
 
-    private int code;
-    private String message;
+    private final int code;
+    private final String message;
 
     public MyException(int code, String message) {
         super(message);
