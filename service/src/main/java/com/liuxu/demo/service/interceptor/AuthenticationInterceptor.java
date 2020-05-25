@@ -24,18 +24,17 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 
         if (loginUserDto == null) {
             MyExceptionHandler.publish(ResultCode.USER_NOT_LOGIN);
+        }else {
+//            setupDefault(request);
+            if (loginUserDto.getUserName() != null) {
+                ThreadLocalMap.setUp(new HashMap<>());
+                ThreadLocalMap.set(CommonDef.USER_LOGIN_INFO_USER_ID, loginUserDto.getUserId());
+                ThreadLocalMap.set(CommonDef.USER_LOGIN_INFO_USER_CODE, loginUserDto.getUserCode());
+                ThreadLocalMap.set(CommonDef.USER_LOGIN_INFO_USER_NAME, loginUserDto.getUserName());
+                return true;
+            }
         }
-//        setupDefault(request);
-
-        ThreadLocalMap.setUp(new HashMap<>());
-
-        if (loginUserDto.getUserName() != null) {
-            ThreadLocalMap.set(CommonDef.USER_LOGIN_INFO_USER_ID, loginUserDto.getUserId());
-            ThreadLocalMap.set(CommonDef.USER_LOGIN_INFO_USER_CODE, loginUserDto.getUserCode());
-            ThreadLocalMap.set(CommonDef.USER_LOGIN_INFO_USER_NAME, loginUserDto.getUserName());
-
-        }
-        return true;
+        return false;
     }
 
 //    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex){
