@@ -46,7 +46,7 @@ public class LoginServiceImpl implements LoginService {
         }else {
             String password = null;
             try {
-                password = md5(loginUserReq.getPassword());
+                password = CheckHelper.md5(loginUserReq.getPassword());
             } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();
             }
@@ -91,9 +91,4 @@ public class LoginServiceImpl implements LoginService {
         }
     }
 
-    private String md5(String password) throws NoSuchAlgorithmException {
-        MessageDigest md = MessageDigest.getInstance("SHA");
-        md.update(password.getBytes());
-        return new BigInteger(md.digest()).toString(32);
-    }
 }

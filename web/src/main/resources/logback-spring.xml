@@ -20,7 +20,7 @@ Base logback configuration provided for compatibility with Spring Boot 1.1
     <logger name="org.hibernate.validator.internal.util.Version" level="WARN"/>
 
 
-    <property name="LOG_FILE" value="${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}/spring.log}"/>
+    <property name="LOG_FILE" value="./app.log"/>
 
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
@@ -29,24 +29,38 @@ Base logback configuration provided for compatibility with Spring Boot 1.1
         </encoder>
     </appender>
 
-    <appender name="FILE"
+    <appender name="APP_LOG"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
         <encoder>
             <pattern>${FILE_LOG_PATTERN}</pattern>
         </encoder>
+        <prudent>false</prudent>
+        <append>true</append>
         <file>${LOG_FILE}</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <cleanHistoryOnStart>${LOG_FILE_CLEAN_HISTORY_ON_START:-false}</cleanHistoryOnStart>
-            <fileNamePattern>${ROLLING_FILE_NAME_PATTERN:-${LOG_FILE}.%d{yyyy-MM-dd}.%i.gz}</fileNamePattern>
-            <maxFileSize>${LOG_FILE_MAX_SIZE:-10MB}</maxFileSize>
-            <maxHistory>${LOG_FILE_MAX_HISTORY:-7}</maxHistory>
-            <totalSizeCap>${LOG_FILE_TOTAL_SIZE_CAP:-0}</totalSizeCap>
+<!--            <cleanHistoryOnStart>${LOG_FILE_CLEAN_HISTORY_ON_START:-false}</cleanHistoryOnStart>-->
+            <fileNamePattern>${APP_LOG_FILE}.%d{yyyy-MM-dd}-%i.gz</fileNamePattern>
+            <maxFileSize>10MB</maxFileSize>
+            <maxHistory>15</maxHistory>
+            <totalSizeCap>200MB</totalSizeCap>
         </rollingPolicy>
     </appender>
 
+    <appender name="APP_LOG_ASYNC"
+              class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>512</queueSize>
+        <appender-ref ref="APP_LOG" />
+        <includeCallerData>true</includeCallerData>
+    </appender>
+
+    <logger name="org.springframework.scheduling" level="INFO">
+        <appender-ref ref="APP_LOG_ASYNC" />
+    </logger>
+
     <root level="INFO">
         <appender-ref ref="CONSOLE" />
-        <appender-ref ref="FILE" />
+        <appender-ref ref="APP_LOG_ASYNC" />
     </root>
 
 </configuration>

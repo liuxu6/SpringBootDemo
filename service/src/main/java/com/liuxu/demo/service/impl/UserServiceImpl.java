@@ -13,6 +13,9 @@ import com.liuxu.demo.service.mapper.UserMapper;
 import com.liuxu.demo.service.mapper.SequenceMapper;
 import com.liuxu.demo.common.result.ResultCode;
 import com.liuxu.demo.common.util.CheckHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +26,8 @@ import java.security.NoSuchAlgorithmException;
 @Service
 public class UserServiceImpl implements UserService {
 
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Autowired
     private LoginMapper loginMapper;
 
@@ -31,6 +36,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private SequenceMapper sequenceMapper;
+
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
 
     @Override
     public AddUserResp addUser(AddUserReq addUserReq) throws MyException {
@@ -46,9 +54,9 @@ public class UserServiceImpl implements UserService {
 
         String password = null;
         try {
-            password = md5(addUserReq.getPassword());
+            password = CheckHelper.md5(addUserReq.getPassword());
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
 
         UserDTO userDTO = loginMapper.selectLoginUserByCode(addUserReq.getUserCode());
@@ -67,15 +75,17 @@ public class UserServiceImpl implements UserService {
             addUserResp.setUserId(userId);
 
         }else {
-            MyExceptionHandler.publish(ResultCode.DATA_IS_EXISTS,"用户");
+            MyExceptionHandler.publish(ResultCode.DATA_IS_EXISTS,TableNameDef.USER_TABLE_USER_NAME);
+            logger.error("用户已存在，用户信息为："+userDTO.toString());
         }
 
+//        amqp demo
+        amqpDemo(userDTO);
         return addUserResp;
     }
 
-    private String md5(String password) throws NoSuchAlgorithmException {
-        MessageDigest md = MessageDigest.getInstance("SHA");
-        md.update(password.getBytes());
-        return new BigInteger(md.digest()).toString(32);
+    private void amqpDemo(UserDTO userDTO){
+        rabbitTemplate.convertAndSend("demo.email","email",userDTO);
     }
+
 }
