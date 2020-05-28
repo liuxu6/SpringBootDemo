@@ -56,6 +56,10 @@ public class ThreadLocalMap {
         }
     }
 
+    public static void unload() {
+        currentSession.remove();
+    }
+
 //    public static Boolean getBoolean(String key) {
 //        Map<String, Object> session = currentSession.get();
 //        if (session != null && session.get(key) != null) {
