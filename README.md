@@ -95,5 +95,5 @@ java -jar -Dspring.profiles.active=local web-0.0.1-SNAPSHOT.jar
 ``` bash
 docker build --tag=demo:1.0 .
 docker volume create --name maven-repo
-docker run -d --name dome -p 8080:8080 -v maven-repo:/root/.m2 demo:1.0
+docker run -d --name demo -p 8080:8080 -v maven-repo:/root/.m2 demo:1.0
 ```
