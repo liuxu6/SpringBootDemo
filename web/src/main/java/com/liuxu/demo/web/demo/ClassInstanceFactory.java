@@ -1,4 +1,7 @@
-//package com.liuxu.demo.common.util;
+///*
+//*工厂模式，使用String创建相应的class
+//* */
+//package com.liuxu.demo.web.demo;
 //
 //import java.lang.reflect.Field;
 //import java.lang.reflect.Method;
