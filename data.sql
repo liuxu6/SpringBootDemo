@@ -47,7 +47,7 @@ CREATE TABLE `sequences` (
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
+DELIMITER //
 CREATE DEFINER=`root`@`%` FUNCTION `currval`(a_seq_name VARCHAR(55)) RETURNS bigint(20)
 begin
     declare seq_val bigint;
@@ -62,7 +62,7 @@ begin
         SIGNAL SQLSTATE '42000' set MESSAGE_TEXT='error:1001,Query was empty,sequence name not found ';
     end if;
     return seq_val;
-end ;;
+end //
 DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
@@ -76,7 +76,7 @@ DELIMITER ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
-DELIMITER ;;
+DELIMITER //
 CREATE DEFINER=`root`@`%` FUNCTION `nextval`(a_seq_name VARCHAR(55)) RETURNS bigint(20)
 begin
     declare seq_val bigint;
@@ -102,7 +102,7 @@ begin
         SIGNAL SQLSTATE '42000' set MESSAGE_TEXT='error:1001,Query was empty,sequence name not found ';
     end if;
     return seq_val;
-end ;;
+end //
 DELIMITER ;
 
 
