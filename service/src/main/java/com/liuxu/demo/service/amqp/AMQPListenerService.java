@@ -11,10 +11,10 @@ public class AMQPListenerService {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @RabbitListener(queues = "demo.email")
-    public void receiver(UserDTO userDTO){
-        logger.info("用户已存在，用户信息为:"+userDTO.toString());
-    }
+//    @RabbitListener(queues = "demo.email")
+//    public void receiver(UserDTO userDTO){
+//        logger.info("用户已存在，用户信息为:"+userDTO.toString());
+//    }
 
 
 }

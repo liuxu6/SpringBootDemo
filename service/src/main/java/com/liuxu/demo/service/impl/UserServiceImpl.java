@@ -79,8 +79,8 @@ public class UserServiceImpl implements UserService {
             logger.error("用户已存在，用户信息为："+userDTO.toString());
         }
 
-//        amqp demo
-        amqpDemo(userDTO);
+//        消息队列  模拟发送消息
+//        amqpDemo(userDTO);
         return addUserResp;
     }
 

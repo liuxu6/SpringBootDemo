@@ -6,6 +6,8 @@ import com.liuxu.demo.common.exception.MyException;
 import com.liuxu.demo.service.intf.LoginService;
 import com.liuxu.demo.common.result.Result;
 import com.liuxu.demo.common.result.ResultCode;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,7 @@ public class LoginController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    @ApiOperation("用户登录")
     @RequestMapping(value = "/login", produces = { "application/json" }, method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.CREATED)
     @ResponseBody
@@ -36,6 +39,7 @@ public class LoginController {
 
     }
 
+    @ApiOperation("用户登出")
     @RequestMapping(value = "/loginout", produces = { "application/json" }, method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     @ResponseBody
@@ -43,10 +47,11 @@ public class LoginController {
         loginService.loginOut(request, response);
     }
 
+    @ApiOperation("查询当前登录的用户信息")
     @RequestMapping(value = "/loginuser", produces = { "application/json" }, method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public Result queryLoginUser() throws MyException {
+    public Result queryLoginUser(){
         return new Result(ResultCode.SUCCESS, loginService.queryLoginUser());
     }
 

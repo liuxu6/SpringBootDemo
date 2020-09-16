@@ -7,16 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.*;
 
-/**
- * <Description> <br>
- * 
- * @author wu.bo3<br>
- * @version 1.0<br>
- * @taskId <br>
- * @CreateDate 2018年12月17日<br>
- * @since <br>
- * @see <br>
- */
+
 @Configuration
 public class WebConfiguration implements WebMvcConfigurer {
 
@@ -28,8 +19,13 @@ public class WebConfiguration implements WebMvcConfigurer {
         registry.addInterceptor(localInterceptor).addPathPatterns(CommonDef.BASE_PATH + "/**").excludePathPatterns("/error", CommonDef.BASE_PATH + "/**/login/**");
     }
 
+//    @Override
+//    public void addViewControllers(ViewControllerRegistry registry) {
+//        registry.addViewController("/").setViewName("forward:/index.html");
+//    }
+
     @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("forward:/index.html");
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
     }
 }

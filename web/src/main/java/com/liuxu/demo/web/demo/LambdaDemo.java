@@ -1,4 +1,4 @@
-package com.liuxu.demo.web;
+package com.liuxu.demo.web.demo;
 
 import java.util.function.*;
 
